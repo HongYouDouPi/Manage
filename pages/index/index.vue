@@ -10,7 +10,7 @@
 				<!-- <li :class="{ active: activeItem === 'image' }" @click="changeTab('image')">首页图</li> -->
 			</ul>
 		</div>
-		
+
 		<!-- 主内容 -->
 		<div class="content">
 			<!-- 用户栏 -->
@@ -211,14 +211,16 @@
 							<td>{{ booking.lecture_id }}</td>
 							<td>{{ booking.student_id }}</td>
 							<td>
-								<div class="action-button" :class="{'green-border': booking.join_status == 0, 'red-border': booking.join_status == 1} ">
+								<div class="action-button"
+									:class="{'green-border': booking.join_status == 0, 'red-border': booking.join_status == 1} ">
 									{{ booking.join_status === 0 ? '未参加' : '已参加' }}
 								</div>
 							</td>
 							<td>
 								<!-- 删除按钮 -->
 								<div class="action-button delete-button"
-									@click="showDelBookingDialog = !showDelBookingDialog; delIndexId = booking.booking_id">删除</div>
+									@click="showDelBookingDialog = !showDelBookingDialog; delIndexId = booking.booking_id">
+									删除</div>
 							</td>
 						</tr>
 					</tbody>
@@ -325,7 +327,7 @@
 	const manageName = ref('')
 	const managePassword = ref('')
 	const addBookings = ref({});
-	
+
 	const editIndexId = ref('')
 	const delIndexId = ref('')
 
@@ -535,7 +537,7 @@
 		// 修改成功与否都更新
 		showAddImageDialog.value = false
 	}
-	
+
 	// 选择图片并上传
 	function UploadImage() {
 		uni.chooseImage({
@@ -550,7 +552,7 @@
 						// 解析传回来的json
 						let data = JSON.parse(uploadFileRes.data);
 						// console.log("上传结果", data);
-	
+
 						if (data.status) {
 							// 如果上传成功，则保存图片URL到lectureImage变量
 							uploadImage.lectureImage = data.data.links.url; // 获取图片URL并赋值
@@ -580,8 +582,8 @@
 			}
 		});
 	}
-	
-	
+
+
 	function addBooking() {
 		let data = addBookings.value
 		console.log('添加的addBookings数据-vue', data)
@@ -601,13 +603,13 @@
 		showAddBookingDialog.value = false;
 		// 更新数据
 	}
-	
+
 	function delBooking(id) {
 		console.log('删除的管理员id', id);
 		axios.post('http://localhost:8080/bookInfo/del', {
-			id
-		})
-		.then(response => {
+				id
+			})
+			.then(response => {
 				console.log('Delete response:', response.data);
 				fetchBookings();
 			})
@@ -615,10 +617,10 @@
 				console.error('Delete error:', error);
 				fetchBookings();
 			});
-			showDelBookingDialog.value = false;
+		showDelBookingDialog.value = false;
 	}
-	
-	
+
+
 	// 使用axios发送HTTP GET请求获取信息
 	function fetchLectures() {
 		axios.get('http://localhost:8080/lecturesInfo') // 后端接口地址
@@ -880,14 +882,15 @@
 		/* 将元素推到最右边 */
 		/* margin-right: auto; */
 	}
+
 	.red-border {
-	    /* border: 1px solid #ffcccc; */
+		/* border: 1px solid #ffcccc; */
 		background-color: #ffcccc;
 		/* color: #FFFFFF; */
 	}
-	
+
 	.green-border {
-	    /* border: 1px solid #99ff99; */
+		/* border: 1px solid #99ff99; */
 		background-color: #9a99a7;
 		/* color: #FFFFFF; */
 	}
